@@ -1,4 +1,4 @@
-/* Premium Glassmorphism Tic Tac Toe Theme */
+/* Vibrant High-Contrast Neon Tic Tac Toe Theme */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -6,19 +6,15 @@
 }
 
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f172a, #312e81, #1e1b4b);
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    --text-color: #f8fafc;
-    --text-muted: #94a3b8;
-    --cell-bg: rgba(255, 255, 255, 0.04);
-    --cell-hover: rgba(255, 255, 255, 0.08);
-    --x-color: #0ea5e9; /* Neon blue */
-    --x-glow: 0 0 15px rgba(14, 165, 233, 0.6);
-    --o-color: #f43f5e; /* Neon pink/red */
-    --o-glow: 0 0 15px rgba(244, 63, 94, 0.6);
-    --btn-gradient: linear-gradient(90deg, #8b5cf6, #ec4899);
+    --bg-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-color: #ffffff;
+    --text-muted: #e2e8f0;
+    --cell-bg: rgba(255, 255, 255, 0.05);
+    --x-color: #00f5ff; /* Neon Blue */
+    --o-color: #ff2e63; /* Neon Pink */
+    --btn-gradient: linear-gradient(45deg, #ff2e63, #ff9a3c);
 }
 
 body {
@@ -39,14 +35,14 @@ header {
 }
 
 header h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 900;
-    background: linear-gradient(to right, #38bdf8, #818cf8, #e879f9);
+    background: linear-gradient(to right, #ff2e63, #00f5ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
     letter-spacing: 2px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 0 10px rgba(255, 46, 99, 0.4));
 }
 
 main {
@@ -61,12 +57,12 @@ main {
 /* Glassmorphism Game Container */
 .game-container {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     padding: 40px;
     border-radius: 24px;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     text-align: center;
     max-width: 100%;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -74,16 +70,17 @@ main {
 
 .game-container:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
 }
 
 /* Status Header */
 .status {
     margin-bottom: 30px;
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     transition: all 0.3s ease;
 }
 
@@ -109,26 +106,26 @@ main {
     font-weight: 900;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
 }
 
 .cell:hover:not(.taken) {
-    background: var(--cell-hover);
+    background: rgba(255, 255, 255, 0.1);
     transform: scale(1.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 20px rgba(255,255,255,0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 /* Cell Symbol Animations and Glows */
 .cell.x-symbol {
     color: var(--x-color);
-    text-shadow: var(--x-glow);
+    text-shadow: 0 0 15px currentColor;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .cell.o-symbol {
     color: var(--o-color);
-    text-shadow: var(--o-glow);
+    text-shadow: 0 0 15px currentColor;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
@@ -138,11 +135,11 @@ main {
 
 /* Win highlight class */
 .cell.winning-cell {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.08);
     z-index: 2;
-    border-color: #fff;
-    box-shadow: 0 0 30px rgba(255,255,255,0.15);
+    border-color: #ffffff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
     animation: pulse 1.5s infinite;
 }
 
@@ -153,9 +150,9 @@ main {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1.05); }
-    50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,255,255,0.25); }
-    100% { transform: scale(1.05); }
+    0% { transform: scale(1.08); }
+    50% { transform: scale(1.12); box-shadow: 0 0 40px rgba(255,255,255,0.4); }
+    100% { transform: scale(1.08); }
 }
 
 /* Restart Button */
@@ -167,34 +164,20 @@ main {
     font-size: 1.2rem;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 20px -10px rgba(236, 72, 153, 0.8);
-    position: relative;
-    overflow: hidden;
-}
-
-.reset-btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-    transition: left 0.5s ease;
+    box-shadow: 0 8px 20px -5px rgba(255, 46, 99, 0.6);
 }
 
 .reset-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 15px 25px -10px rgba(236, 72, 153, 1);
-}
-
-.reset-btn:hover::before {
-    left: 100%;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(255, 46, 99, 0.8);
 }
 
 .reset-btn:active {
-    transform: translateY(1px) scale(0.97);
+    transform: translateY(1px) scale(0.98);
 }
 
 /* Footer styles */
