@@ -1,0 +1,39 @@
+/* 
+ * Reset default browser margins and padding,
+ * and use border-box for consistent sizing 
+ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333333;
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+    min-height: calc(100vh - 140px);
+}
+
+/* Footer styles */
+footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #dddddd;
+}
