@@ -28,6 +28,73 @@ header {
 main {
     padding: 20px;
     min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Game UI Styles --- */
+
+/* Game Container */
+.game-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+/* Status Header */
+.status {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333333;
+}
+
+/* Tic Tac Toe Board */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+/* Individual Cell */
+.cell {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.cell:hover {
+    background-color: #e2e6ea;
+    border-color: #ced4da;
+}
+
+/* Reset Button */
+.reset-btn {
+    background-color: #4361ee;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+    background-color: #3a53d0;
 }
 
 /* Footer styles */
