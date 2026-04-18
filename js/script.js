@@ -71,8 +71,13 @@ function handleCellClick(event) {
     // Place the current player's symbol in the cell
     clickedCell.innerText = currentPlayer;
 
-    // Provide visual feedback that the cell is taken
-    clickedCell.style.cursor = "default";
+    // Provide visual feedback and color that the cell is taken
+    clickedCell.classList.add("taken");
+    if (currentPlayer === "X") {
+        clickedCell.classList.add("x-symbol");
+    } else {
+        clickedCell.classList.add("o-symbol");
+    }
 
     // Check if the current move won the game
     const gameWon = checkWinner();
@@ -93,10 +98,10 @@ function resetGame() {
     // Reset status text
     statusText.innerText = `Player ${currentPlayer}'s Turn`;
     
-    // Clear all cells on the board
+    // Clear all cells on the board and remove visual classes
     cells.forEach(cell => {
         cell.innerText = "";
-        cell.style.cursor = "pointer"; // Reset visual feedback
+        cell.classList.remove("taken", "x-symbol", "o-symbol");
     });
 }
 
