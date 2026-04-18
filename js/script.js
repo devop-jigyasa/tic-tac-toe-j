@@ -59,12 +59,28 @@ function checkWinner() {
     return false; // Return false indicating no winner yet
 }
 
+// Function to check if the game ended in a draw
+function checkDraw() {
+    // Check if every cell has text in it (no empty cells left)
+    const isDraw = Array.from(cells).every(cell => cell.innerText !== "");
+
+    // If it is a draw and the game is still active
+    if (isDraw && gameActive) {
+        statusText.innerText = "It's a Draw!";
+        gameActive = false;
+        return true;
+    }
+
+    return false;
+}
+
 // Function to handle cell clicks
 function handleCellClick(event) {
     const clickedCell = event.target;
 
     // If the game is over or the cell is already filled, ignore the click
-    if (!gameActive || clickedCell.innerText !== "") {
+    // Also check for 'taken' class
+    if (!gameActive || clickedCell.classList.contains("taken")) {
         return;
     }
 
@@ -82,10 +98,15 @@ function handleCellClick(event) {
     // Check if the current move won the game
     const gameWon = checkWinner();
 
-    // If the game isn't won, toggle the player and continue
+    // If the game isn't won, check for a draw or toggle player
     if (!gameWon) {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-        statusText.innerText = `Player ${currentPlayer}'s Turn`;
+        const gameDraw = checkDraw();
+        
+        // If it's not a draw, toggle the player and continue
+        if (!gameDraw) {
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            statusText.innerText = `Player ${currentPlayer}'s Turn`;
+        }
     }
 }
 
