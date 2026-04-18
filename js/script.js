@@ -1,15 +1,11 @@
-// Output message to verify that the script has loaded successfully
-console.log("Project initialized");
-
 // Select necessary elements from the DOM
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector(".status");
 const resetButton = document.querySelector(".reset-btn");
 
-// Track the current player ("X" starts the game)
+// Game State Variables
+let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
-
-// Track if the game is currently active
 let gameActive = true;
 
 // Array of all possible winning combinations (indexes of the 3x3 grid)
@@ -24,7 +20,35 @@ const winningCombinations = [
     [2, 4, 6]  // diagonal 2
 ];
 
-// Function to check if there is a winner
+// Function to handle cell clicks
+function handleCellClick(event) {
+    const clickedCell = event.target;
+    // We retrieve the cell's index from its data-index attribute
+    const cellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+    // If the game is over or the cell is already filled, ignore the click
+    if (!gameActive || board[cellIndex] !== "") {
+        return;
+    }
+
+    // Update the game state array
+    board[cellIndex] = currentPlayer;
+
+    // Update the UI
+    clickedCell.innerText = currentPlayer;
+    clickedCell.classList.add("taken");
+    
+    if (currentPlayer === "X") {
+        clickedCell.classList.add("x-symbol");
+    } else {
+        clickedCell.classList.add("o-symbol");
+    }
+
+    // Check if the current move won the game or resulted in a draw
+    checkWinner();
+}
+
+// Function to check if there is a winner or draw
 function checkWinner() {
     let roundWon = false;
 
@@ -32,94 +56,63 @@ function checkWinner() {
     for (let i = 0; i < winningCombinations.length; i++) {
         const winCondition = winningCombinations[i];
         
-        // Get the text inside the cells for the current combination
-        const cellA = cells[winCondition[0]].innerText;
-        const cellB = cells[winCondition[1]].innerText;
-        const cellC = cells[winCondition[2]].innerText;
+        // Get the values from our board array
+        const cellA = board[winCondition[0]];
+        const cellB = board[winCondition[1]];
+        const cellC = board[winCondition[2]];
 
-        // If any of the cells are empty, we cannot have a winner for this combination
+        // If any cell in the combination is empty, skip to next combination
         if (cellA === "" || cellB === "" || cellC === "") {
             continue;
         }
 
-        // If all three cells match, we have a winner
+        // If all three match, a player has won
         if (cellA === cellB && cellB === cellC) {
             roundWon = true;
             break;
         }
     }
 
-    // If a winner was found, update the game state and UI
+    // Handle Win
     if (roundWon) {
         statusText.innerText = `Player ${currentPlayer} Wins!`;
         gameActive = false;
-        return true; // Return true to indicate the game is over
+        return;
     }
-    
-    return false; // Return false indicating no winner yet
+
+    // Check for a Draw if no one won
+    checkDraw();
 }
 
 // Function to check if the game ended in a draw
 function checkDraw() {
-    // Check if every cell has text in it (no empty cells left)
-    const isDraw = Array.from(cells).every(cell => cell.innerText !== "");
+    // Check if there are no empty strings left in our board array
+    const isDraw = !board.includes("");
 
-    // If it is a draw and the game is still active
     if (isDraw && gameActive) {
         statusText.innerText = "It's a Draw!";
         gameActive = false;
-        return true;
-    }
-
-    return false;
-}
-
-// Function to handle cell clicks
-function handleCellClick(event) {
-    const clickedCell = event.target;
-
-    // If the game is over or the cell is already filled, ignore the click
-    // Also check for 'taken' class
-    if (!gameActive || clickedCell.classList.contains("taken")) {
         return;
     }
 
-    // Place the current player's symbol in the cell
-    clickedCell.innerText = currentPlayer;
-
-    // Provide visual feedback and color that the cell is taken
-    clickedCell.classList.add("taken");
-    if (currentPlayer === "X") {
-        clickedCell.classList.add("x-symbol");
-    } else {
-        clickedCell.classList.add("o-symbol");
-    }
-
-    // Check if the current move won the game
-    const gameWon = checkWinner();
-
-    // If the game isn't won, check for a draw or toggle player
-    if (!gameWon) {
-        const gameDraw = checkDraw();
-        
-        // If it's not a draw, toggle the player and continue
-        if (!gameDraw) {
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            statusText.innerText = `Player ${currentPlayer}'s Turn`;
-        }
+    // If game is not won or drawn, it's the next player's turn
+    if (gameActive) {
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        statusText.innerText = `Player ${currentPlayer}'s Turn`;
     }
 }
 
-// Function to restart the game
+// Function to restart the game and reset all states
 function resetGame() {
     // Reset state variables
+    board = ["", "", "", "", "", "", "", "", ""];
     currentPlayer = "X";
     gameActive = true;
     
     // Reset status text
     statusText.innerText = `Player ${currentPlayer}'s Turn`;
     
-    // Clear all cells on the board and remove visual classes
+    // Clear all cells on the board UI and remove classes
     cells.forEach(cell => {
         cell.innerText = "";
         cell.classList.remove("taken", "x-symbol", "o-symbol");
