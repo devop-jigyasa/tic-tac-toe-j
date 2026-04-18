@@ -69,6 +69,11 @@ function checkWinner() {
         // If all three match, a player has won
         if (cellA === cellB && cellB === cellC) {
             roundWon = true;
+            
+            // Highlight the winning cells for the animation effect
+            cells[winCondition[0]].classList.add("winning-cell");
+            cells[winCondition[1]].classList.add("winning-cell");
+            cells[winCondition[2]].classList.add("winning-cell");
             break;
         }
     }
@@ -115,7 +120,7 @@ function resetGame() {
     // Clear all cells on the board UI and remove classes
     cells.forEach(cell => {
         cell.innerText = "";
-        cell.classList.remove("taken", "x-symbol", "o-symbol");
+        cell.classList.remove("taken", "x-symbol", "o-symbol", "winning-cell");
     });
 }
 

@@ -1,189 +1,232 @@
-/* 
- * Reset default browser margins and padding,
- * and use border-box for consistent sizing 
- */
+/* Premium Glassmorphism Tic Tac Toe Theme */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Modern Color Palette & Variables */
 :root {
-    --bg-color: #f0f4f8;
-    --container-bg: #ffffff;
-    --text-color: #334155;
-    --border-color: #cbd5e1;
-    --cell-bg: #f8fafc;
-    --cell-hover: #f1f5f9;
-    --x-color: #3b82f6; /* Blue for X */
-    --o-color: #ef4444; /* Red for O */
-    --btn-bg: #6366f1;
-    --btn-hover: #4f46e5;
+    --bg-gradient: linear-gradient(135deg, #0f172a, #312e81, #1e1b4b);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --cell-bg: rgba(255, 255, 255, 0.04);
+    --cell-hover: rgba(255, 255, 255, 0.08);
+    --x-color: #0ea5e9; /* Neon blue */
+    --x-glow: 0 0 15px rgba(14, 165, 233, 0.6);
+    --o-color: #f43f5e; /* Neon pink/red */
+    --o-glow: 0 0 15px rgba(244, 63, 94, 0.6);
+    --btn-gradient: linear-gradient(90deg, #8b5cf6, #ec4899);
 }
 
-/* Basic body styling */
 body {
-    font-family: 'Inter', Arial, sans-serif;
-    background-color: var(--bg-color);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
     color: var(--text-color);
-    line-height: 1.6;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Header styles */
 header {
-    background-color: var(--container-bg);
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    position: relative;
     z-index: 10;
 }
 
 header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #38bdf8, #818cf8, #e879f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 
-/* Main content styles */
 main {
     flex: 1;
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    perspective: 1000px;
 }
 
-/* --- Game UI Styles --- */
-
-/* Game Container */
+/* Glassmorphism Game Container */
 .game-container {
-    background: var(--container-bg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
     text-align: center;
     max-width: 100%;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.game-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Status Header */
 .status {
     margin-bottom: 30px;
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-color);
-    transition: color 0.3s ease;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
 
 /* Tic Tac Toe Board */
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 110px);
-    grid-template-rows: repeat(3, 110px);
-    gap: 12px;
-    margin-bottom: 35px;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 15px;
+    margin-bottom: 40px;
     justify-content: center;
 }
 
 /* Individual Cell */
 .cell {
-    background-color: var(--cell-bg);
-    border: 3px solid var(--border-color);
-    border-radius: 16px;
+    background: var(--cell-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
-    font-weight: 800;
-    color: var(--text-color);
+    font-size: 4.5rem;
+    font-weight: 900;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
 }
 
 .cell:hover:not(.taken) {
-    background-color: var(--cell-hover);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    border-color: #94a3b8;
+    background: var(--cell-hover);
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255,255,255,0.05);
 }
 
-/* Cell Symbol Colors & Animations */
+/* Cell Symbol Animations and Glows */
 .cell.x-symbol {
     color: var(--x-color);
-    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: var(--x-glow);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .cell.o-symbol {
     color: var(--o-color);
-    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: var(--o-glow);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .cell.taken {
     cursor: default;
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+/* Win highlight class */
+.cell.winning-cell {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    z-index: 2;
+    border-color: #fff;
+    box-shadow: 0 0 30px rgba(255,255,255,0.15);
+    animation: pulse 1.5s infinite;
 }
 
-/* Reset Button */
+@keyframes popIn {
+    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+    50% { transform: scale(1.15) rotate(5deg); opacity: 0.8; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,255,255,0.25); }
+    100% { transform: scale(1.05); }
+}
+
+/* Restart Button */
 .reset-btn {
-    background: linear-gradient(135deg, var(--btn-bg), var(--btn-hover));
+    background: var(--btn-gradient);
     color: #ffffff;
     border: none;
-    padding: 14px 32px;
-    font-size: 1.1rem;
-    border-radius: 10px;
+    padding: 16px 42px;
+    font-size: 1.2rem;
+    border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px -10px rgba(236, 72, 153, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.reset-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s ease;
 }
 
 .reset-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px -2px rgba(99, 102, 241, 0.5);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 15px 25px -10px rgba(236, 72, 153, 1);
+}
+
+.reset-btn:hover::before {
+    left: 100%;
 }
 
 .reset-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px -1px rgba(99, 102, 241, 0.4);
+    transform: translateY(1px) scale(0.97);
 }
 
 /* Footer styles */
 footer {
-    background-color: var(--container-bg);
     text-align: center;
-    padding: 15px;
-    color: #64748b;
-    font-size: 0.9rem;
-    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.02);
+    padding: 25px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: transparent;
 }
 
-/* Responsive adjustments for mobile */
-@media (max-width: 480px) {
+/* Responsive adjustments */
+@media (max-width: 500px) {
     .board {
-        grid-template-columns: repeat(3, 85px);
-        grid-template-rows: repeat(3, 85px);
-        gap: 8px;
+        grid-template-columns: repeat(3, 90px);
+        grid-template-rows: repeat(3, 90px);
+        gap: 10px;
     }
     
     .cell {
-        font-size: 3rem;
-        border-radius: 12px;
-    }
-    
-    .game-container {
-        padding: 25px 20px;
+        font-size: 3.5rem;
         border-radius: 16px;
     }
     
+    .game-container {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
     header h1 {
-        font-size: 1.2rem;
+        font-size: 2.2rem;
     }
 }
