@@ -4,6 +4,7 @@ console.log("Project initialized");
 // Select necessary elements from the DOM
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector(".status");
+const resetButton = document.querySelector(".reset-btn");
 
 // Track the current player ("X" starts the game)
 let currentPlayer = "X";
@@ -83,7 +84,26 @@ function handleCellClick(event) {
     }
 }
 
+// Function to restart the game
+function resetGame() {
+    // Reset state variables
+    currentPlayer = "X";
+    gameActive = true;
+    
+    // Reset status text
+    statusText.innerText = `Player ${currentPlayer}'s Turn`;
+    
+    // Clear all cells on the board
+    cells.forEach(cell => {
+        cell.innerText = "";
+        cell.style.cursor = "pointer"; // Reset visual feedback
+    });
+}
+
 // Attach click event listeners to each cell
 cells.forEach(cell => {
     cell.addEventListener("click", handleCellClick);
 });
+
+// Attach click event listener to the reset button
+resetButton.addEventListener("click", resetGame);
